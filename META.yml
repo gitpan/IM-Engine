@@ -1,0 +1,35 @@
+---
+abstract: 'The HTTP::Engine of instant messaging'
+author:
+  - 'Shawn M Moore, C<sartak@gmail.com>'
+build_requires:
+  ExtUtils::MakeMaker: 6.42
+configure_requires:
+  ExtUtils::MakeMaker: 6.42
+distribution_type: module
+generated_by: 'Module::Install version 0.91'
+license: perl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: IM-Engine
+no_index:
+  directory:
+    - examples
+    - inc
+    - t
+recommends:
+  AnyEvent::XMPP: 0
+  Bot::BasicBot: 0
+  HTML::TreeBuilder: 0
+  Net::OSCAR: 0
+requires:
+  Moose: 0
+  MooseX::AttributeHelpers: 0
+  MooseX::StrictConstructor: 0
+  MooseX::Traits: 0
+  Scalar::Util: 0
+  perl: 5.8.1
+resources:
+  license: http://dev.perl.org/licenses/
+version: 0.01
