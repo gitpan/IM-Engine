@@ -24,6 +24,7 @@ recommends:
   HTML::TreeBuilder: 0
   Net::OSCAR: 0
 requires:
+  Data::OptList: 0
   Moose: 0
   MooseX::AttributeHelpers: 0
   MooseX::StrictConstructor: 0
@@ -31,5 +32,7 @@ requires:
   Scalar::Util: 0
   perl: 5.8.1
 resources:
+  homepage: http://github.com/sartak/IM-Engine/tree
   license: http://dev.perl.org/licenses/
-version: 0.01
+  repository: git://github.com/sartak/IM-Engine.git
+version: 0.02

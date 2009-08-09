@@ -2,11 +2,10 @@ package IM::Engine;
 use 5.008001;
 use Moose;
 use MooseX::StrictConstructor;
-use Moose::Util::TypeConstraints;
 
 use IM::Engine::Interface;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 with 'IM::Engine::HasPlugins';
 
@@ -33,7 +32,7 @@ sub _build_interface {
         or confess "You must provide 'interface' to " . blessed($self) . "->new";
 
     my $protocol = delete $interface->{protocol}
-        or confess "Your IM::Engine::Interface definition must include the 'protocol' key.";
+        or confess "Your IM::Engine::Interface definition must include the 'protocol' key";
 
     if ($protocol !~ s{^\+}{}) {
         $protocol = join '::', 'IM', 'Engine', 'Interface', $protocol;
@@ -51,7 +50,6 @@ sub engine { shift }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
-no Moose::Util::TypeConstraints;
 
 1;
 
@@ -89,7 +87,7 @@ facilitates switching between these different services.
 
 It is currently alpha quality with serious features missing and is rife with
 horrible bugs. I'm releasing it under the "release early, release often"
-doctrine. Backwards compatibility may be broken in any subsequent release.
+doctrine. Backwards compatibility may be broken in subsequent releases.
 
 =head1 PROTOCOLS
 

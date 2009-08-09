@@ -2,12 +2,15 @@ use inc::Module::Install;
 
 name     'IM-Engine';
 all_from 'lib/IM/Engine.pm';
+githubmeta;
 
 requires 'Moose';
 requires 'MooseX::AttributeHelpers';
 requires 'MooseX::Traits';
 requires 'MooseX::StrictConstructor';
+
 requires 'Scalar::Util';
+requires 'Data::OptList';
 
 features(
     'AIM interface' => [
