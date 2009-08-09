@@ -2,7 +2,11 @@ package IM::Engine::Message;
 use Moose;
 use MooseX::StrictConstructor;
 
-with 'MooseX::Traits';
+use IM::Engine::ExtendsObject::Message;
+with 'IM::Engine::PluggableConstructor' => {
+    role_specifier => '+IM::Engine::ExtendsObject::Message',
+};
+
 has '+_trait_namespace' => (default => __PACKAGE__);
 
 has message => (
@@ -29,7 +33,7 @@ __END__
 
 =head1 NAME
 
-IM::Engine::Message
+IM::Engine::Message - an instant message, IRC line, etc.
 
 =head1 SYNOPSIS
 

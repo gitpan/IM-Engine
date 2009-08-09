@@ -26,10 +26,16 @@ sub _build_oscar {
     $oscar->set_callback_im_in(sub {
         my (undef, $sender, $message, $is_away) = @_;
 
-        my $incoming = $weakself->incoming_class->new_with_traits(
+        my $sender = $weakself->user_class->new_with_plugins(
+            name   => $sender->stringify,
+            engine => $weakself->engine,
+        );
+
+        my $incoming = $weakself->incoming_class->new_with_plugins(
             traits  => ['HTMLish'],
-            sender  => $weakself->user_class->new(name => $sender->stringify),
+            sender  => $sender,
             message => $message,
+            engine  => $weakself->engine,
         );
 
         $weakself->received_message($incoming);
@@ -59,3 +65,4 @@ __PACKAGE__->meta->make_immutable;
 no Moose;
 
 1;
+

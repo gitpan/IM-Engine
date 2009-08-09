@@ -5,7 +5,7 @@ use MooseX::StrictConstructor;
 
 use IM::Engine::Interface;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 with 'IM::Engine::HasPlugins';
 
@@ -89,6 +89,10 @@ It is currently alpha quality with serious features missing and is rife with
 horrible bugs. I'm releasing it under the "release early, release often"
 doctrine. Backwards compatibility may be broken in subsequent releases.
 
+In particular, I am likely to move L<IM::Engine::Interface::AIM>,
+L<IM::Engine::Interface::Jabber>, and L<IM::Engine::Interface::IRC> into their
+own distributions, since they have their own dependencies.
+
 =head1 PROTOCOLS
 
 IM::Engine currently understands the following protocols:
@@ -123,6 +127,29 @@ Talks XMPP using L<AnyEvent::XMPP>:
         # ...
     );
 
+=head2 L<IRC|IM::Engine::Interface::IRC>
+
+Talks IRC using L<Bot::BasicBot> (though should switch to L<AnyEvent::IRC>):
+
+    IM::Engine->new(
+        interface => {
+            protocol => 'IRC',
+            credentials => {
+                server   => "irc.perl.org",
+                port     => 6667,
+                channels => ["#moose", "#im-engine"],
+                nick     => "Boot",
+            },
+        },
+        # ...
+    );
+
+There has been some concern about whether IRC is actually an IM protocol. I
+certainly consider private messages to be IM-ish. For some bots, joining
+regular human-infested channels would also make sense. Bots that just respond
+to chatters (which is most, if not all, of what purl does) make sense outside
+of the context of IRC, so that is the use case I am targetting.
+
 =head2 L<REPL|IM::Engine::Interface::REPL>
 
 Opens up a shell where every line of input is an IM. Responses will be printed
@@ -154,7 +181,24 @@ Shawn M Moore, C<sartak@gmail.com>
 
 =head1 SEE ALSO
 
-L<HTTP::Engine>
+=over 4
+
+=item L<HTTP::Engine>
+
+The inspiration for the initial design
+
+=item L<IM::Engine::Plugin::Dispatcher>
+
+Uses L<Path::Dispatcher> to provide sugary IM dispatch
+
+=item L<IM::Engine::Plugin::State>
+
+Provides state management methods on L<IM::Engine::User>s
+
+=item L<IM::Engine::Plugin::MultiCommand>
+
+Allows multiple commands to be run in one IM (builds on
+L<IM::Engine::Plugin::Dispatcher>)
 
 =head1 COPYRIGHT AND LICENSE
 

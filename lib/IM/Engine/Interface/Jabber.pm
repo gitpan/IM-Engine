@@ -45,10 +45,16 @@ sub _build_xmpp {
 
             return if !defined($msg->body);
 
-            my $incoming = $weakself->incoming_class->new(
-                sender       => $weakself->user_class->new(name => $msg->from),
+            my $sender = $weakself->user_class->new_with_plugins(
+                name   => $msg->from,
+                engine => $weakself->engine,
+            );
+
+            my $incoming = $weakself->incoming_class->new_with_plugins(
+                sender       => $sender,
                 xmpp_message => $msg,
                 message      => $msg->body,
+                engine       => $weakself->engine,
             );
 
             $weakself->received_message($incoming);
@@ -97,3 +103,4 @@ __PACKAGE__->meta->make_immutable;
 no Moose;
 
 1;
+

@@ -2,6 +2,13 @@ package IM::Engine::User;
 use Moose;
 use MooseX::StrictConstructor;
 
+use IM::Engine::ExtendsObject::User;
+with 'IM::Engine::PluggableConstructor' => {
+    role_specifier => '+IM::Engine::ExtendsObject::User',
+};
+
+has '+_trait_namespace' => (default => __PACKAGE__);
+
 has name => (
     is       => 'ro',
     isa      => 'Str',
@@ -22,7 +29,7 @@ __END__
 
 =head1 NAME
 
-IM::Engine::User
+IM::Engine::User - a user that we're IMing
 
 =head1 ATTRIBUTES
 

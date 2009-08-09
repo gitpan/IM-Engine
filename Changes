@@ -1,5 +1,17 @@
 IM::Engine changes
 
+0.03  2009-08-09
+    each_plugin's API has changed to be callback based
+    plugin_collect HasPlugins method
+    Give IM::Engine::User new_with_traits
+    PluggableConstructor role for new_with_plugins that let plugins interact
+        with User and Message construction
+    CLI's run method takes an argument, useful for tests
+    guessing-game example of Dispatcher and State
+    post_initialization method for plugins
+    RequiresPlugins role for plugins that require other plugins
+    More documentation
+
 0.02  2009-08-08
     Document most of the user-visible classes
     Use Data::OptList to massage plugin arguments

@@ -27,6 +27,7 @@ requires:
   Data::OptList: 0
   Moose: 0
   MooseX::AttributeHelpers: 0
+  MooseX::Role::Parameterized: 0
   MooseX::StrictConstructor: 0
   MooseX::Traits: 0
   Scalar::Util: 0
@@ -35,4 +36,4 @@ resources:
   homepage: http://github.com/sartak/IM-Engine/tree
   license: http://dev.perl.org/licenses/
   repository: git://github.com/sartak/IM-Engine.git
-version: 0.02
+version: 0.03

@@ -23,9 +23,15 @@ sub run {
         last if !defined($input);
         chomp $input;
 
-        my $incoming = $self->incoming_class->new(
-            sender  => $self->user_class->new(name => $ENV{USER}),
+        my $sender = $self->user_class->new_with_plugins(
+            name   => $ENV{USER},
+            engine => $self->engine,
+        );
+
+        my $incoming = $self->incoming_class->new_with_plugins(
+            sender  => $sender,
             message => $input,
+            engine  => $self->engine,
         );
 
         $self->received_message($incoming);
