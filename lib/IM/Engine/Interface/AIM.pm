@@ -17,6 +17,13 @@ has oscar => (
     builder => '_build_oscar',
 );
 
+has signed_on => (
+    is      => 'ro',
+    writer  => '_set_signed_on',
+    isa     => 'Bool',
+    default => 0,
+);
+
 sub _build_oscar {
     my $self = shift;
 
@@ -24,10 +31,10 @@ sub _build_oscar {
 
     my $weakself = $self;
     $oscar->set_callback_im_in(sub {
-        my (undef, $sender, $message, $is_away) = @_;
+        my (undef, $screenname, $message, $is_away) = @_;
 
         my $sender = $weakself->user_class->new_with_plugins(
-            name   => $sender->stringify,
+            name   => $screenname->stringify,
             engine => $weakself->engine,
         );
 
@@ -40,6 +47,11 @@ sub _build_oscar {
 
         $weakself->received_message($incoming);
     });
+
+    $oscar->set_callback_signon_done(sub {
+        $weakself->_set_signed_on(1);
+    });
+
     weaken($weakself);
 
     $oscar->signon($self->credentials);
@@ -51,13 +63,25 @@ sub send_message {
     my $self     = shift;
     my $outgoing = shift;
 
+    $self->_wait_until_signed_on unless $self->signed_on;
+
     $self->oscar->send_im($outgoing->recipient->name, $outgoing->message);
+    $self->oscar->do_one_loop; # make sure we send the message
 }
 
 sub run {
     my $self = shift;
     while (1) {
         $self->oscar->do_one_loop;
+    }
+}
+
+sub _wait_until_signed_on {
+    my $self = shift;
+
+    while (1) {
+        $self->oscar->do_one_loop;
+        last if $self->signed_on;
     }
 }
 

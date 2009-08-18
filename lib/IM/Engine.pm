@@ -5,7 +5,7 @@ use MooseX::StrictConstructor;
 
 use IM::Engine::Interface;
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 with 'IM::Engine::HasPlugins';
 
@@ -19,7 +19,7 @@ has interface_args => (
 has interface => (
     is       => 'ro',
     isa      => 'IM::Engine::Interface',
-    handles  => ['run'],
+    handles  => ['run', 'send_message'],
     init_arg => undef,
     builder  => '_build_interface',
     lazy     => 1,
@@ -129,7 +129,7 @@ Talks XMPP using L<AnyEvent::XMPP>:
 
 =head2 L<IRC|IM::Engine::Interface::IRC>
 
-Talks IRC using L<Bot::BasicBot> (though should switch to L<AnyEvent::IRC>):
+Talks IRC using L<AnyEvent::IRC>:
 
     IM::Engine->new(
         interface => {
@@ -199,6 +199,8 @@ Provides state management methods on L<IM::Engine::User>s
 
 Allows multiple commands to be run in one IM (builds on
 L<IM::Engine::Plugin::Dispatcher>)
+
+=back
 
 =head1 COPYRIGHT AND LICENSE
 

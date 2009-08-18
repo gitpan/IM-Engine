@@ -19,8 +19,8 @@ no_index:
     - inc
     - t
 recommends:
+  AnyEvent::IRC: 0
   AnyEvent::XMPP: 0
-  Bot::BasicBot: 0
   HTML::TreeBuilder: 0
   Net::OSCAR: 0
 requires:
@@ -36,4 +36,4 @@ resources:
   homepage: http://github.com/sartak/IM-Engine/tree
   license: http://dev.perl.org/licenses/
   repository: git://github.com/sartak/IM-Engine.git
-version: 0.04
+version: 0.05
